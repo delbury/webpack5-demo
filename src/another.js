@@ -1,13 +1,12 @@
-// import _, { obj } from './lodash';
-
-// obj.count++;
-// console.log(obj.count);
-
-// console.log(_.join(['Another', 'module', 'loaded!'], ' '));
-
-import('./lodash').then(({ default: _, obj }) => {
-  obj.count++;
-  console.log(obj.count);
-
-  console.log(_.join(['Another', 'module', 'loaded!'], ' '));
-})
+document.onclick = () => {
+  import(
+    'lodash'
+  ).then(({ default: _ }) => {
+    function fn() {
+      console.log(_.join(['This', 'is', 'entry!'], ' '));
+      // let c = 1000000000;
+      // while(c--);
+    }
+    fn();
+  });
+};
