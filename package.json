@@ -2,11 +2,13 @@
   "name": "webpack-demo",
   "version": "1.0.0",
   "description": "",
+  "private": true,
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack-cli",
-    "watch": "webpack-cli --watch"
+    "build": "webpack",
+    "watch": "webpack --watch",
+    "serve": "webpack serve"
   },
   "author": "",
   "license": "ISC",
@@ -19,6 +21,7 @@
     "toml": "^3.0.0",
     "webpack": "^5.45.1",
     "webpack-cli": "^4.7.2",
+    "webpack-dev-server": "^3.11.2",
     "webpack-manifest-plugin": "^3.1.1",
     "xml-loader": "^1.2.1",
     "yamljs": "^0.3.0"

@@ -4,6 +4,7 @@ const yaml = require('yamljs');
 const json5 = require('json5');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
+const webpack = require('webpack');
 
 module.exports = {
   // mode: 'production',
@@ -24,24 +25,27 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, './dist'),
-    filename: 'somepackage.js',
-    library: {
-      name: 'thepackage',
-      type: 'umd',
-    },
-    // filename: 'entry...[chunkhash:4]...[contenthash:4]...[name].js',
+    // filename: 'somepackage.js',
+    // library: {
+    //   name: 'thepackage',
+    //   type: 'umd',
+    // },
+    filename: 'entry...[chunkhash:4]...[contenthash:4]...[name].js',
     // chunkFilename: 'chunk.[chunkhash:4].[contenthash:4].[name].js',
     // assetModuleFilename: 'asset.[fullhash:8][ext][query]',
     clean: true,
+    trustedTypes: {
+      policyName: 'pname'
+    },
   },
-  externals: {
-    lodash: {
-      commonjs: 'lodash',
-      commonjs2: 'lodash',
-      amd: 'lodash',
-      root: '_',
-    }
-  },
+  // externals: {
+  //   lodash: {
+  //     commonjs: 'lodash',
+  //     commonjs2: 'lodash',
+  //     amd: 'lodash',
+  //     root: '_',
+  //   }
+  // },
   // experiments: {
   //   outputModule: true,
   // },
@@ -59,22 +63,41 @@ module.exports = {
   //   }
   // },
   // devtool: 'source-map',
+  devServer: {
+    hot: true,
+    port: 4000,
+  },
   plugins: [
-    // new HtmlWebpackPlugin({
-    //   title: 'Output',
-    //   template: './public/index.html',
-    //   inject: 'body',
-    //   publicPath: './',
-    //   // hash: true,
-    //   // excludeChunks: ['print']
-    //   // favicon: './src/favicon.png'
-    // }),
+    new webpack.HotModuleReplacementPlugin({
+
+    }),
+    new HtmlWebpackPlugin({
+      title: 'Output',
+      template: './public/index.html',
+      inject: 'body',
+      publicPath: './',
+      // hash: true,
+      // excludeChunks: ['print']
+      // favicon: './src/favicon.png'
+    }),
     // new WebpackManifestPlugin({
     //   publicPath: './'
+    // }),
+    // new webpack.ProgressPlugin((pert, msg, ...args) => {
+    //   console.info(pert);
     // }),
   ],
   module: {
     rules: [
+      // {
+      //   test: /\.js$/i,
+      //   include: path.resolve(__dirname, 'src/main.js'),
+      //   use: ['./loaders/msg-loader.js', './loaders/addtion-loader.js']
+      // },
+      {
+        test: /\.png$/i,
+        use: ['./loaders/raw-loader.js']
+      }
       // {
       //   test: /\.css$/i,
       //   use: ['style-loader', 'css-loader']
