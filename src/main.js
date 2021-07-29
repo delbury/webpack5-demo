@@ -1,14 +1,20 @@
-// __webpack_nonce__ = 'c29tZSBjb29sIHN0cmluZyB3aWxsIHBvcCB1cCAxMjM=';
+import _ from 'lodash';
+import printMe from './forloader.js';
+import './style.css';
 
-// // import _ from './lodash';
+function component() {
+  const element = document.createElement('div');
+  const btn = document.createElement('button');
 
-// // export const fn = (msg) => console.log(_.join(['hello', 'world'], ' '));4
+  element.innerHTML = _.join(['Hello', 'webpack'], ' ');
+  element.classList.add('hello');
 
-// const ctx = require.context('./ctx', true, /\.js$/i);
-// // console.dir(ctx);
-// ctx.keys().forEach(k => {
-//   // console.dir(ctx(k));
-//   // console.log('resolve: ', ctx.resolve(k));
-// });
+  btn.innerHTML = 'Click me and check the console....!';
+  btn.onclick = printMe;
 
-import './favicon.png';
+  element.appendChild(btn);
+
+  return element;
+}
+
+document.body.appendChild(component());

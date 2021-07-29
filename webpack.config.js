@@ -5,13 +5,14 @@ const json5 = require('json5');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 const webpack = require('webpack');
+const TerserWebpackPlugin = require('terser-webpack-plugin');
 
 module.exports = {
-  // mode: 'production',
-  mode: 'development',
+  mode: 'production',
+  // mode: 'development',
   entry: {
     // main: './src/index.js',
-    main: './src/main.js',
+    // main: './src/main.js',
     // print: './src/print.js',
     // index: {
     //   import: './src/start.js',
@@ -22,6 +23,7 @@ module.exports = {
       // dependOn: 'shared',
     // },
     // shared: './src/lodash.js'
+    main: './src/tree-sharking.js',
   },
   output: {
     path: path.resolve(__dirname, './dist'),
@@ -30,7 +32,8 @@ module.exports = {
     //   name: 'thepackage',
     //   type: 'umd',
     // },
-    filename: 'entry...[chunkhash:4]...[contenthash:4]...[name].js',
+    // filename: 'entry...[chunkhash:4]...[contenthash:4]...[name].js',
+    filename: 'entry.[name].js',
     // chunkFilename: 'chunk.[chunkhash:4].[contenthash:4].[name].js',
     // assetModuleFilename: 'asset.[fullhash:8][ext][query]',
     clean: true,
@@ -49,7 +52,10 @@ module.exports = {
   // experiments: {
   //   outputModule: true,
   // },
-  // optimization: {
+  optimization: {
+    // usedExports: true,
+    // sideEffects: true,
+    // minimize: false,
   //   // moduleIds: 'deterministic',
   //   runtimeChunk: 'single',
   //   splitChunks: {
@@ -61,8 +67,8 @@ module.exports = {
   //       },
   //     },
   //   }
-  // },
-  // devtool: 'source-map',
+  },
+  devtool: 'source-map',
   devServer: {
     hot: true,
     port: 4000,
@@ -92,12 +98,26 @@ module.exports = {
       // {
       //   test: /\.js$/i,
       //   include: path.resolve(__dirname, 'src/main.js'),
-      //   use: ['./loaders/msg-loader.js', './loaders/addtion-loader.js']
+      //   use: [
+      //     {
+      //       loader: './loaders/msg-loader.js?{"name": "huhuhu", "age": 17}',
+      //       // options: {
+      //       //   title: 'message',
+      //       //   content: 'some infomation',
+      //       // },
+      //     }, 
+      //     // './loaders/msg-loader.js',
+      //     './loaders/addtion-loader.js'
+      //   ],
+      //   // loader: './loaders/msg-loader.js',
+      //   // options: {
+      //   //   common: 'ohhhhhhh'
+      //   // }.,
       // },
-      {
-        test: /\.png$/i,
-        use: ['./loaders/raw-loader.js']
-      }
+      // {
+      //   test: /\.png$/i,
+      //   use: ['./loaders/raw-loader.js']
+      // }
       // {
       //   test: /\.css$/i,
       //   use: ['style-loader', 'css-loader']

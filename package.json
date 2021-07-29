@@ -28,5 +28,10 @@
   },
   "dependencies": {
     "lodash": "^4.17.21"
-  }
+  },
+  "sideEffects": [
+    "./src/leaf.js",
+    "./src/test-for-tree-shaking/fly.js",
+    "./src/test-for-tree-shaking/com.js"
+  ]
 }
